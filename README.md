@@ -10,6 +10,7 @@ Para executar a API rode os seguintes comandos no diretório "todoapi":
 
 ```sh
 npm i
+npm build
 npm start
 ```
 

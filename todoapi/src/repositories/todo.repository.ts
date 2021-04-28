@@ -28,7 +28,10 @@ export class TodoRepository extends DefaultCrudRepository<
       return {status: 400, message: 'Todo is already marked as undone'};
     }
 
-    if (todo.changes! >= 2) {
+    console.log(todo.changes!);
+    console.log(todo.changes! >= 3);
+
+    if (todo.changes! >= 3) {
       return {
         status: 400,
         message: 'Todo item is no available to mark as undone',

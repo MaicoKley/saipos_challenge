@@ -64,7 +64,7 @@
                   <td>{{todo.description}}</td>
                   <td>{{todo.email}}</td>
                   <td>
-                    <button [disabled]="todo.changes >= 2"   type="button" class="btn btn-danger btn-sm ml-1" (click)="setTodoToUndoneId(todo.id)">Retornar</button>
+                    <button [disabled]="todo.changes > 2"   type="button" class="btn btn-danger btn-sm ml-1" (click)="setTodoToUndoneId(todo.id)">Retornar</button>
                   </td>
                 </tr>
               </tbody>
