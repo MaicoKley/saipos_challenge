@@ -1,0 +1,116 @@
+<div class="container">
+
+  <div id="todo-app">
+    <div class="card">
+      <div class="card-header" id="todo-list-header">
+        <button class="btn btn-link" data-toggle="collapse" data-target="#todo-list-body" aria-expanded="true" aria-controls="todo-list-body">Todo List</button>        
+      </div> 
+      
+      <div id="todo-list-body" class="collapse show" aria-labelledby="todo-list-header" data-parent="#todo-app">
+        <button type="submit" class="btn btn-primary new-todo-items" (click)="newTodoItems()" >Estou sem tarefas</button>
+        <div class="card-body" >
+          <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Id</th>
+                  <th scope="col">Responsável</th>
+                  <th scope="col">Descrição</th>
+                  <th scope="col">E-mail</th>
+                  <th scope="col">Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let todo of todoMarkedUndone">
+                  <td>{{todo.id}}</td>
+                  <td>{{todo.owner}}</td>
+                  <td>{{todo.description}}</td>
+                  <td>{{todo.email}}</td>
+                  <td>
+                    <button type="button" class="btn btn-warning btn-sm" (click)="markTodoAsDone(todo.id)">Concluir</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+      </div>
+    </div>
+  
+    <div class="card">
+      <div class="card-header" id="done-list-header">
+        <button class="btn btn-link" data-toggle="collapse" data-target="#done-list-body" aria-expanded="false" aria-controls="done-list-body">Done List</button>        
+      </div>
+
+      <div id="done-list-body" class="collapse show" aria-labelledby="done-list-header" data-parent="#todo-app">
+        <div *ngIf="todoToUndoneId !== 0" class="row password-container">
+          <label for="password" class="col-form-label">Informe a senha do supervisor:</label>
+          <input [attr.id]="password" type="password" class="col-sm-2 form-control" #password />
+          <button type="button" class="col-sm-2 btn btn-danger btn-sm ml-1" (click)="markTodoAsUndone(todoToUndoneId, password.value)">Confirmar</button>
+        </div>
+        <div class="card-body">
+          <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Id</th>
+                  <th scope="col">Responsável</th>
+                  <th scope="col">Descrição</th>
+                  <th scope="col">E-mail</th>
+                  <th scope="col">Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let todo of todoMarkedDone">
+                  <td>{{todo.id}}</td>
+                  <td>{{todo.owner}}</td>
+                  <td>{{todo.description}}</td>
+                  <td>{{todo.email}}</td>
+                  <td>
+                    <button [disabled]="todo.changes >= 2"   type="button" class="btn btn-danger btn-sm ml-1" (click)="setTodoToUndoneId(todo.id)">Retornar</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+      </div>
+    </div> 
+  
+    <div class="card">        
+        <div class="card-header" id="add-todo-header">
+          <button class="btn btn-link" data-toggle="collapse" data-target="#add-todo-body" aria-expanded="false" aria-controls="add-todo-body">Adicionar Todo</button>          
+        </div>
+
+        <div id="add-todo-body" class="collapse show" aria-labelledby="add-todo-header" data-parent="#todo-app">
+          <div class="card-body">
+              <form id="add-form" (ngSubmit)="f.form.valid && saveTodo(f)" #f="ngForm" novalidate>
+                <div class="form-group">
+                    <label for="owner">Responsável</label>
+                    <input type="text" [(ngModel)]="newTodo.owner" id="owner" name="owner" #owner="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && owner.invalid }" placeholder="Digite o nome do responsável">
+                    <div *ngIf="f.submitted && owner.invalid" class="invalid-feedback">
+                        <div *ngIf="owner.errors.required">Responsável é obrigatório</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                  <label for="email">E-mail</label>
+                  <input type="email" [(ngModel)]="newTodo.email" id="email" name="email" #email="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && email.invalid }" placeholder="Digite o e-mail do responsável" (blur)="mailValidator(email.value)">
+                  <div *ngIf="f.submitted && email.invalid" class="invalid-feedback">
+                      <div *ngIf="email.errors.required">E-mail é obrigatório</div>
+                  </div>
+                  <div *ngIf="!!email.value && (!mailValidation.format_valid || !mailValidation.mx_found)" class="mail-validation">
+                    <div>Informe um e-mail válido</div>
+                    <div *ngIf="!!mailValidation.did_you_mean">Você quis dizer: {{mailValidation.did_you_mean}}</div>
+                  </div>
+              </div>
+                <div class="form-group">
+                    <label for="description">Descrição</label>
+                    <input type="text" [(ngModel)]="newTodo.description" id="description" name="description" #description="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && description.invalid }" placeholder="Digite a descrição da tarefa">
+                    <div *ngIf="f.submitted && description.invalid" class="invalid-feedback">
+                        <div *ngIf="description.errors.required">Descrição é obrigatório</div>
+                    </div>
+                </div>                
+                <button [disabled]="!mailValidation.format_valid || !mailValidation.mx_found" type="submit" class="btn btn-primary">Criar</button>
+                <button type="reset" class="btn btn-secondary" (click)="f.resetForm()">Cancelar</button>
+              </form>
+          </div>
+         </div>
+    </div>
+  </div>
+</div>

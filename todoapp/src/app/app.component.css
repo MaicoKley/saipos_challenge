@@ -1,0 +1,17 @@
+.password-container {
+  margin: 20px 20px 0;
+}
+
+.mail-validation {
+  font-size: 80%;
+  color: #dc3545;
+  align-items: center;
+}
+
+.new-todo-items {
+  margin: 20px 20px 0;
+}
+
+.card {
+  margin: 10px;
+}

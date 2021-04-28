@@ -9,15 +9,12 @@ const config = {
   port: 49153,
   user: 'postgres',
   password: '123456',
-  database: 'todoapp'
+  database: 'todoapp',
 };
 
-// Observe application's life cycle to disconnect the datasource when
-// application is stopped. This allows the application to be shut down
-// gracefully. The `stop()` method is inherited from `juggler.DataSource`.
-// Learn more at https://loopback.io/doc/en/lb4/Life-cycle.html
 @lifeCycleObserver('datasource')
-export class PostgresDataSource extends juggler.DataSource
+export class PostgresDataSource
+  extends juggler.DataSource
   implements LifeCycleObserver {
   static dataSourceName = 'postgres';
   static readonly defaultConfig = config;
