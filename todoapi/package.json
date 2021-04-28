@@ -21,17 +21,8 @@
     "prettier:fix": "npm run prettier:cli -- --write",
     "eslint": "lb-eslint --report-unused-disable-directives .",
     "eslint:fix": "npm run eslint -- --fix",
-    "pretest": "npm run rebuild",
-    "test": "lb-mocha --allow-console-logs \"dist/__tests__\"",
-    "posttest": "npm run lint",
-    "test:dev": "lb-mocha --allow-console-logs dist/__tests__/**/*.js && npm run posttest",
-    "docker:build": "docker build -t todoapi .",
-    "docker:run": "docker run -p 3000:3000 -d todoapi",
-    "premigrate": "npm run build",
     "migrate": "node ./dist/migrate",
-    "preopenapi-spec": "npm run build",
     "openapi-spec": "node ./dist/openapi-spec",
-    "prestart": "npm run rebuild",
     "start": "node -r source-map-support/register .",
     "clean": "lb-clean dist *.tsbuildinfo .eslintcache",
     "rebuild": "npm run clean && npm run build"
@@ -45,8 +36,7 @@
   "files": [
     "README.md",
     "dist",
-    "src",
-    "!*/__tests__"
+    "src"
   ],
   "dependencies": {
     "@loopback/boot": "^3.3.1",
