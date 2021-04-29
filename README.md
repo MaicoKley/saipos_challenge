@@ -10,8 +10,7 @@ Para executar a API rode os seguintes comandos no diretório "todoapi":
 
 ```sh
 npm i
-npm build
-npm start
+npm run dev
 ```
 
 Para executar o componente Front-End rode os seguintes comandos no diretório "todoapp":
