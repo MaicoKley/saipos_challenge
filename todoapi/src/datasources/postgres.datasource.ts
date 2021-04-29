@@ -6,7 +6,7 @@ const config = {
   connector: 'postgresql',
   url: '',
   host: 'localhost',
-  port: 49153,
+  port: 49154,
   user: 'postgres',
   password: '123456',
   database: 'todoapp',

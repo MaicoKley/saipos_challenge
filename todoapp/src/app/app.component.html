@@ -7,7 +7,7 @@
       </div> 
       
       <div id="todo-list-body" class="collapse show" aria-labelledby="todo-list-header" data-parent="#todo-app">
-        <button type="submit" class="btn btn-primary new-todo-items" (click)="newTodoItems()" >Estou sem tarefas</button>
+        <button [disabled]="todoMarkedUndone.length !== 0" type="submit" class="btn btn-primary new-todo-items" (click)="newTodoItems()" >Estou sem tarefas</button>
         <div class="card-body" >
           <table class="table">
               <thead>
